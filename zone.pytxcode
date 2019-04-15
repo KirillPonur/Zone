@@ -1,0 +1,49 @@
+=>PYTHONTEX#py#default#default#0#code#####85#
+##
+def frexp10(decimal):
+	parts = ('%e' % decimal).split('e')
+	return float(parts[0]), int(parts[1])
+##
+=>PYTHONTEX#py#default#default#1#code#####139#
+##
+from main import *
+##
+=>PYTHONTEX#py#default#default#2#i#####285#
+round(pp[0],2)
+=>PYTHONTEX#py#default#default#3#i#####286#
+round(Wg,2)
+=>PYTHONTEX#py#default#default#4#i#####297#
+round(n,2)
+=>PYTHONTEX#py#default#default#5#c#####301#
+sigmainf=round(pp[1],2)
+=>PYTHONTEX#py#default#default#6#i#####302#
+sigmainf
+=>PYTHONTEX#py#default#default#7#i#####303#
+sigmainf
+=>PYTHONTEX#py#default#default#8#i#####303#
+round(e**sigmainf,2)
+=>PYTHONTEX:SETTINGS#
+version=0.17dev
+outputdir=pythontex-files-zone
+workingdir=.
+workingdirset=false
+gobble=none
+rerun=default
+hashdependencies=default
+makestderr=false
+stderrfilename=full
+keeptemps=none
+pyfuture=default
+pyconfuture=none
+pygments=true
+pygglobal=:GLOBAL||
+fvextfile=-1
+pyconbanner=none
+pyconfilename=stdin
+depythontex=false
+pygfamily=py|python|
+pygfamily=pycon|pycon|
+pygfamily=sympy|python|
+pygfamily=sympycon|pycon|
+pygfamily=pylab|python|
+pygfamily=pylabcon|pycon|

@@ -1,4 +1,4 @@
-\input{text/pre}
+\input{text/diss}
 
 \renewcommand{\phi}{\varphi}
 
@@ -8,6 +8,7 @@
 \def\labgroup{430}
 \def\labnumber{1}
 \def\labtheme{Измерение ширины запрещенной зоны}
+\def\department{}
 \input{text/titlepage}
 
 % \tableofcontents
@@ -62,7 +63,7 @@
 	\label{eq:2.8}
 \end{equation}
 которое даёт вероятность того, что в тепловом равновесии состояние с энергией $W$ занято электроном. Здесь $k_B$ –
-постоянная Больцмана, $Т$ – абсолютная температура, $W_F$ – энергия (уровень) Ферми – максимальная энергия электронов при
+постоянная Больцмана, $T$ – абсолютная температура, $W_F$ – энергия (уровень) Ферми – максимальная энергия электронов при
 абсолютном нуле. Для температуры, отличной от нуля, функция $f(W)$ в точке $W = W_F$ имеет перегиб.
 
 Выражения для концентрации электронов и дырок в совокупности с принципом электронейтральности
@@ -258,7 +259,7 @@ $$\sigma = \frac{l}{ad} \frac{I_{\text{об}}}{ I_k ~ R_{\text{э}}}$$
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width = .8\linewidth]{graphs/lns1.png}
+	\includegraphics[width = .8\linewidth]{fig/lns}
 	\caption{}
 	\label{fig:exp.1}
 \end{figure}
@@ -268,7 +269,9 @@ $\ln\sigma(\frac{10^3}{T})$ и величиной $W_g$:
 
 $$ \ln(\sigma) = \underbrace{\ln(\sigma_C)}_{const} - W_g /2 k_B T $$
 $$ W_g = -1000 \cdot \tan(\theta) \cdot 2 k_B $$
-где $\tan(\theta)$ - тангенс угла наклона графика $\ln\sigma(\frac{1}{T})$, $k_B \approx 8.62 \cdot 10^{-5}$ эВ/К -
+где $\tan(\theta)$ - тангенс угла наклона графика 
+$\ln\sigma(\frac{1}{T})$, 
+$k_B \approx 8.62 \cdot 10^{-5}$ эВ/К -
 постоянная Больцмана.
 
 \begin{figure}[h!]
@@ -279,23 +282,25 @@ $$ W_g = -1000 \cdot \tan(\theta) \cdot 2 k_B $$
 \end{figure}
 
 Определили угловой коэффициент наклона кривой в области высоких температур и рассчитали значение $W_g$:
-$$\tan(\theta) \approx -4.57 \pm 0.5 $$
-$$ W_g \approx 0.79 \pm 0.09\text{ эВ}$$ 
+$$\tan(\theta) \approx \py{round(pp[0],2)} \pm 0.5 $$
+$$ W_g \approx \py{round(Wg,2)} \pm 0.09\text{ эВ}$$ 
 
 В области истощения примесей (на рис.\ref{fig:exp.1} - область значений от 2.8 до 3.5 по оси $(\frac{10^3}{T})$ )
 определили зависимость $\sigma = f(T)$, считая, что $\sigma \approx T^n$. Ее можно найти, взяв на кривой две точки и
 воспользовавшись соотношением $\sigma_{I} / \sigma_{2}=\left(T_{I} / T_{2}\right)^{n}$.
 
-$$\ln \sigma_1 = -4.659, \ln \sigma_2 = -4.644$$
-$$ T_1 = 301.15,T_2 = 305.15 \text{ K} $$
-$$ \ln \sigma_1 - \ln \sigma_2 = n \ln(\frac{T_1}{T_2})$$
-$$ -4.659+4.644 = n \ln(\frac{301.15}{305.15}) $$
-$$ n = 1.15 $$
+% $$\ln \sigma_1 = -4.659, \ln \sigma_2 = -4.644$$
+% $$ T_1 = 301.15,T_2 = 305.15 \text{ K} $$
+% $$ \ln \sigma_1 - \ln \sigma_2 = n \ln(\frac{T_1}{T_2})$$
+% $$ -4.659+4.644 = n \ln(\frac{301.15}{305.15}) $$
+Получаем 
+$$ n = \py{round(n,2)} $$
 
 Определили (экстраполяцией по графику) величину $\sigma_c$, соответствующую
 электропроводности вещества при $T \to \infty$.
-$$ \ln \sigma_c = \ln \sigma (T \to \infty) \approx 8.17$$
-$$\sigma_c = e^{8.17}  = 3533\text{ Ом$^{-1}$см$^{-1}$}$$
+\pyc{sigmainf=round(pp[1],2)}
+$$ \ln \sigma_c = \ln \sigma (T \to \infty) = \py{sigmainf}$$
+$$\sigma_c = e^{\py{sigmainf}}  = \py{round(e**sigmainf,2)} \text{ Ом$^{-1}$см$^{-1}$}$$
 
 
 \end{document}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GetDataWorkspace>
+  <version>2.26.0.20</version>
+  <WSversion>10</WSversion>
+  <File>
+    <Name>D:\Labs\Band-Gap\img\grad.jpg</Name>
+    <Width>824</Width>
+    <Height>604</Height>
+  </File>
+  <Line>
+    <Caption>Line #1</Caption>
+    <LineColor>133,133,133</LineColor>
+    <BkColor>254,254,254</BkColor>
+    <PtColor>220,70,220</PtColor>
+    <LineType>0</LineType>
+    <Points MF="9">751,4810,868,4765,994,4711,1201,4621,1336,4558,1516,4468,1687,4378,1867,4288,1993,4225,2200,4099</Points>
+    <Points MF="9">2317,4045,2389,4000,2506,3937,2605,3874,2695,3829,2758,3793,2839,3748,2911,3703,3019,3640,3127,3568</Points>
+    <Points MF="9">3262,3487,3388,3415,3505,3343,3604,3280,3703,3217,3793,3163,3883,3109,4018,3019,4108,2956,4189,2911</Points>
+    <Points MF="9">4270,2857,4378,2785,4495,2713,4630,2623,4738,2551,4891,2452,5008,2371,5116,2299,5269,2200,5377,2119</Points>
+    <Points MF="9">5467,2056,5557,1993,5665,1912,5728,1876,5782,1831,5854,1777,5935,1723,6025,1651,6115,1588,6268,1471</Points>
+    <Points MF="9">6412,1372,6511,1291,6619,1210,6718,1129,6799,1066,6871,1003,6979,904,7069,823,7159,742,7249,652</Points>
+    <Points MF="9">7321,580</Points>
+  </Line>
+  <CurrentLine>0</CurrentLine>
+  <Xmin MF="9">733,4819,0.000000e+000</Xmin>
+  <Xmax MF="9">7312,4819,2.500000e+002</Xmax>
+  <Ymin MF="9">733,4819,0.000000e+000</Ymin>
+  <Ymax MF="9">733,418,1.000000e+001</Ymax>
+  <XScale>linear</XScale>
+  <YScale>linear</YScale>
+  <Position>15,-17</Position>
+  <Zoom>
+    <Scale>150.0</Scale>
+  </Zoom>
+  <Digitize>
+    <IgnorePixels>1</IgnorePixels>
+    <LineIDMethod>2</LineIDMethod>
+  </Digitize>
+  <AutoTrace>
+    <TraceDistance>8</TraceDistance>
+    <SmoothLines>1</SmoothLines>
+  </AutoTrace>
+  <DigitizeArea>
+    <LineOrArea>0</LineOrArea>
+    <AreaType>1</AreaType>
+    <GridType>0</GridType>
+    <deltaX>1.00000000000000e+000</deltaX>
+    <deltaXUnits>1</deltaXUnits>
+    <GoThroughX>0.00000000000000e+000</GoThroughX>
+    <ShiftX>1</ShiftX>
+    <RotateAngle>0.000000</RotateAngle>
+    <dx>8.000000</dx>
+  </DigitizeArea>
+  <GridSettings>
+    <ShowGrid>0</ShowGrid>
+    <AreaType>0</AreaType>
+    <dx>5.000000</dx>
+    <dy>5.000000</dy>
+  </GridSettings>
+</GetDataWorkspace>

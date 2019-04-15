@@ -1,14 +1,14 @@
 \input{text/diss}
 
 \renewcommand{\phi}{\varphi}
-
+\usepackage{pythonhighlight}
 \begin{document}
 
 \def\labauthors{Карусевич А.А., Понур К.А.}
 \def\labgroup{430}
-\def\labnumber{1}
+\def\department{Кафедра электроники и квантовой физики}
+\def\labnumber{3}
 \def\labtheme{Измерение ширины запрещенной зоны}
-\def\department{}
 \input{text/titlepage}
 
 % \tableofcontents
@@ -301,10 +301,95 @@ $$ W_g \approx \py{round(Wg,2)} \pm 0.1\text{ эВ}$$
 $$ \ln \sigma_c = \ln \sigma (T \to \infty) = \py{sigmainf}$$
 $$\sigma_c = e^{\py{sigmainf}}  = \py{round(e**sigmainf,2)} \text{ Ом$^{-1}$см$^{-1}$}$$
 
-\subsection*{Вывод}
+\subsection*{Заключение}
 Проведя измерения с помощью компенсационного метода измерений на постоянном токе, получены значения теплопроводности образца в диапазоне температур от 300 до 500 К. Определен угловой коэффициент наклона кривой $\ln~\sigma(\frac{10^3}{T})$ и значение $W_g$: 
 $$\tan(\theta) \approx \py{round(pp[0],2)} \pm 0.6 $$
 $$ W_g \approx \py{round(Wg,2)} \pm 0.1\text{ эВ}$$
-В области истощения примесей, учитывая зависимость $\sigma \approx T^n$, рассчитана степень: $n=1.2$, сосчитана величина $\sigma_c$, которая соответствует электропроводности вещества при стремлении температуры в бесконечность: $\sigma_c = \py{round(e**sigmainf,2)} \text{ Ом$^{-1}$см$^{-1}$}$
+В области истощения примесей, учитывая зависимость $\sigma \approx T^n$, рассчитана степень: $n=1.2$, сосчитана величина $\sigma_c$, которая соответствует электропроводности вещества при стремлении температуры в бесконечность: 
+$\sigma_c = \py{round(e**sigmainf,2) } \pm 50  \text{ Ом$^{-1}$см$^{-1}$}$
+
+\section*{Приложение}
+\subsection*{Расчёт погрешностей}
+Погрешности в данной работе были рассчитаны по следующим формулам:
+\begin{equation}
+	\Delta \tan \theta = \ln \sigma \Delta T + 
+	\frac{I_{k}R_{\text{э}}}{\sigma I_{\text{об}}}
+	\qty(\frac{\Delta I_{\text{об}}}{I_k R_{\text{э}}}+
+	\frac{I_{\text{об} }\Delta I_k}{I_k^2 R_\text{э}})
+\end{equation}
+
+\begin{equation}
+	\Delta W= -100\cdot 2 k_b \Delta \tan \theta
+\end{equation}
+Погрешность температуры определялась из погрешности измерения ЭДС, посредством градуировочной шкалы, предварительно аппроксимируемой полиномом:
+\begin{gather}
+	T(E)=aE^4+bE^3+cE^2+dE \\
+	\Delta T= (4aE^3+3bE^2+2cE+d)\Delta E
+\end{gather}
+В свою очередь, для построения прямоугольников погрешности на графике, необходимо знать 
+$\Delta \frac1T$:
+\begin{equation}
+	\Delta(\frac1T)=\frac{4aE^3+3bE^2+2cE+d}{(aE^4+bE^3+cE^2+dE)^2} \Delta E
+\end{equation}
+
+Ниже частично приведен код  python-скрипта, в котором производились все вычисления и обработка экспериментальных данных
+\begin{python}
+from pylab import *
+from matplotlib import rc
+from scipy.optimize import curve_fit
+
+def func(x,a,b,c,d):
+	return a*x**4+b*x**3+c*x**2+d*x
+
+x = array(df['x'])
+y = array(df['y'])
+
+popt, pcov = curve_fit(func,y,x)
+a,b,c,d = popt
+EDS2T = lambda x: a*x**4+b*x**3+c*x**2+d*x
+
+def xerror(Et):
+	x = Et
+	error = (4*a*x**3+3*b*x**2+2*c*x+d)*0.002*x/(a*x**4+b*x**3+c*x**2+d*x)**2
+	return error
+
+Et = array(df['EDS']) #mV
+T = EDS2T(Et)
+xerror=10**3*xerror(Et[1:])
+
+Ik1 = df['I1'] #mA
+Ik2 = df['I2'] #mA
+Ik = (Ik1+Ik2)/2 #mA 
+Iob = df['Iobr'] #mA
+Et = array(df['EDS']) 
+Re = 10 #Ohm
+a = 4 #width
+d = 1.4 # thickness
+l = 7  #len between 1&2
+
+room_t = 28
+k_b = 8.62 *10**(-5) ## eV/K
+d_T = 5 # temp error
+
+#Calculating
+T=T+ 273.15 #to Kelvin 
+weights = np.ones(T.shape)
+weights[0:3] = 0
+
+Ik = (Ik1+Ik2)/2
+Rob =  Ik*Re / Iob 
+ro = (a*d / l) * Rob
+sigma = 1/ro
+k_T = 1000/T
+ln_sigma = log(sigma)
+
+n = (ln_sigma[0]-ln_sigma[2])/(log(T[0]/T[2]))
+# approx
+pp = np.polyfit(k_T,log(sigma),1, w = weights)
+Wg = -pp[0]*2*k_b*1000
+pf = np.poly1d(pp)
+##
+\end{python}
+
 
 \end{document}

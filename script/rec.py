@@ -25,6 +25,12 @@ popt, pcov = curve_fit(func,y,x)
 a,b,c,d=popt
 EDS2T = lambda x: a*x**4+b*x**3+c*x**2+d*x
 
+
+def xerror(Et):
+	x=Et
+	error=(4*a*x**3+3*b*x**2+2*c*x+d)*0.002*x/(a*x**4+b*x**3+c*x**2+d*x)**2
+	return error
+
 rec = path.abspath('..'+'\\data\\rec.xlsx')
 df=read(rec, sheet_name='1')
 
@@ -32,9 +38,8 @@ df=read(rec, sheet_name='1')
 et=linspace(0,10,1000)
 Et = array(df['ЭДС']) #mВ
 T = EDS2T(Et)
-# plot(T, Et)
-# show()
-
+xerror=10**3*xerror(Et[1:])
+print('Ошибка=', xerror)
 
 figure('Измерение ширины запрещенной зоны')
 Ik1 = df['I1'] #mA
@@ -81,7 +86,13 @@ pf = np.poly1d(pp)
 
 
 # plot(10**3/T[weights>0],log(sigma[weights>0]),'o')
-plot(10**3/T,log(sigma),'o',color='crimson')
+errorbar(10**3/T[1:],log(sigma[1:]),
+		xerr = xerror,
+		yerr = 0.1*ones( len(T)-1 ),
+		capsize =2,
+		linestyle = '',
+		color = 'black')
+plot(10**3/T,log(sigma),'o', color='crimson')
 xlabel(r'$\frac{10^3}{T}, \frac{10^3}{K}$',fontsize=16)
 ylabel(r'$\ln{\sigma}, a.u.$ ',fontsize=16)
 grid(which='major', linestyle='-')
@@ -90,15 +101,15 @@ minorticks_on()
 savefig(path.abspath('..'+'\\fig\\lns.pdf'))
 show()
 
-x=10**3/T[weights>0]
-x=linspace(x[0],x[-1],100)
-plot(x,pf(x),label='интерполяция',color='darkblue')
-plot(10**3/T[weights>0],log(sigma[weights>0]),'o',label='эксперимент',color='crimson')
-xlabel(r'$\frac{10^3}{T}, \frac{10^3}{K}$',fontsize=16)
-ylabel(r'$\ln{\sigma}, a.u.$ ',fontsize=16)
-grid(which='major', linestyle='-')
-grid(which='minor', linestyle=':')
-minorticks_on()
-legend()
-savefig(path.abspath('..'+'\\fig\\lns1.pdf'))
-show()
+# x=10**3/T[weights>0]
+# x=linspace(x[0],x[-1],100)
+# plot(x,pf(x),label='интерполяция',color='darkblue')
+# plot(10**3/T[weights>0],log(sigma[weights>0]),'o',label='эксперимент',color='crimson')
+# xlabel(r'$\frac{10^3}{T}, \frac{10^3}{K}$',fontsize=16)
+# ylabel(r'$\ln{\sigma}, a.u.$ ',fontsize=16)
+# grid(which='major', linestyle='-')
+# grid(which='minor', linestyle=':')
+# minorticks_on()
+# legend()
+# savefig(path.abspath('..'+'\\fig\\lns1.pdf'))
+# show()

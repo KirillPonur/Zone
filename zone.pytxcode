@@ -26,8 +26,8 @@ round(e**sigmainf,2)
 round(pp[0],2)
 =>PYTHONTEX#py#default#default#10#i#####307#
 round(Wg,2)
-=>PYTHONTEX#py#default#default#11#i#####308#
-round(e**sigmainf,2)
+=>PYTHONTEX#py#default#default#11#i#####309#
+round(e**sigmainf,2) 
 =>PYTHONTEX:SETTINGS#
 version=0.17dev
 outputdir=pythontex-files-zone
